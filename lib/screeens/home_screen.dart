@@ -1,10 +1,11 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx_music_app/const/colors.dart';
 import 'package:getx_music_app/const/text_style.dart';
 import 'package:getx_music_app/controller/play_controller.dart';
+import 'package:getx_music_app/screeens/player_screen.dart';
 import 'package:on_audio_query/on_audio_query.dart';
+
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -14,12 +15,17 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
+  //  Initialize the controller
+
   PlayController playController = Get.put(PlayController());
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       backgroundColor: AppColors.bgDarkColor,
+
       appBar: AppBar(
         actions: [
           IconButton(
@@ -48,13 +54,15 @@ class _HomeScreenState extends State<HomeScreen> {
           uriType: UriType.EXTERNAL,
         ),
         builder: (BuildContext context, snapshot) {
+
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
               child: CircularProgressIndicator(
                 color: Colors.blue,
               ),
             );
-          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+          }
+          else if (!snapshot.hasData || snapshot.data!.isEmpty) {
             return const Center(
               child: Text(
                 'No Songs found',
@@ -109,6 +117,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       ): null,
                       onTap: (){
                         playController.playSong(snapshot.data![index].uri,index);
+                        Get.to(
+                            PlayerScreen(data: snapshot.data!,));
 
                       },
                     ),)
