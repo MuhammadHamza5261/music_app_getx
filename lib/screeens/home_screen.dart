@@ -47,12 +47,14 @@ class _HomeScreenState extends State<HomeScreen> {
         centerTitle: true,
       ),
       body: FutureBuilder<List<SongModel>>(
+
         future: playController.audioQuery.querySongs(
           ignoreCase: true,
           orderType: OrderType.ASC_OR_SMALLER,
           sortType: null,
           uriType: UriType.EXTERNAL,
         ),
+
         builder: (BuildContext context, snapshot) {
 
           if (snapshot.connectionState == ConnectionState.waiting) {
