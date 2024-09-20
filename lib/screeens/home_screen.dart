@@ -4,6 +4,7 @@ import 'package:getx_music_app/const/colors.dart';
 import 'package:getx_music_app/const/text_style.dart';
 import 'package:getx_music_app/controller/play_controller.dart';
 import 'package:getx_music_app/screeens/player_screen.dart';
+import 'package:getx_music_app/singleton.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 
@@ -20,8 +21,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
   PlayController playController = Get.put(PlayController());
 
+
+  final userName =  Singleton.instance.userName ?? "";
+
   @override
   Widget build(BuildContext context) {
+
+    var width = MediaQuery.of(context).size.width;
+    var height = MediaQuery.of(context).size.height;
 
     return Scaffold(
       backgroundColor: AppColors.bgDarkColor,
@@ -40,10 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
           Icons.sort_rounded,
           color: AppColors.whiteColor,
         ),
-        title: const Text(
-          'Beats',
-          style: CustomTextTheme.textOne,
-        ),
+        title: Text("Welcome, $userName"),
         centerTitle: true,
       ),
       body: FutureBuilder<List<SongModel>>(

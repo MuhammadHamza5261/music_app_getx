@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'package:getx_music_app/screeens/home_screen.dart';
+
+
+import 'auth/login_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,13 +16,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        appBarTheme: const AppBarTheme(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-        ),
-      ),
-      home: const HomeScreen(),
+      // theme: ThemeData(
+      //   appBarTheme: const AppBarTheme(
+      //     backgroundColor: Colors.transparent,
+      //     elevation: 0,
+      //   ),
+      // ),
+      theme: ThemeData.dark(),
+      home: const LoginScreen(),
     );
   }
 }

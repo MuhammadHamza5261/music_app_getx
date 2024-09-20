@@ -6,6 +6,7 @@ import 'package:getx_music_app/const/text_style.dart';
 import 'package:getx_music_app/controller/play_controller.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
+
 class PlayerScreen extends StatelessWidget {
   final List<SongModel> data;
 
