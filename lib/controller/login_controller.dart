@@ -25,8 +25,8 @@ class LoginController extends GetxController {
           "Accept": "application/json",
         },
         body: jsonEncode(<String, dynamic>{
-          "username": nameController.value.text,
-          "password": passwordController.value.text,
+          "username": nameController.text,
+          "password": passwordController.text,
         }),
       );
 
