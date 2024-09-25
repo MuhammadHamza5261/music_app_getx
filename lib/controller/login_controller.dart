@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import '../screeens/home_screen.dart';
 import '../singleton.dart';
 
+
 class LoginController extends GetxController {
 
 
@@ -25,8 +26,8 @@ class LoginController extends GetxController {
           "Accept": "application/json",
         },
         body: jsonEncode(<String, dynamic>{
-          "username": nameController.text,
-          "password": passwordController.text,
+          "username": nameController.value.text,
+          "password": passwordController.value.text,
         }),
       );
 
