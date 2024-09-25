@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:getx_music_app/config/shared_pref.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 import '../screeens/home_screen.dart';
 import '../singleton.dart';
 
@@ -37,6 +39,8 @@ class LoginController extends GetxController {
 
         // Store the username in the Singleton instance
         Singleton.instance.userName = nameController.text;
+        await SharedPrefHelper.setLoggedKey(true);
+
 
         // Navigate to the HomeScreen using Get.off()
         Get.off(() => const HomeScreen());

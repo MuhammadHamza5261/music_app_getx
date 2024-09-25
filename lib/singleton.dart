@@ -7,4 +7,6 @@ class Singleton {
   static Singleton get instance => _instance;
 
   String? userName;
+  String? email;
+
 }
