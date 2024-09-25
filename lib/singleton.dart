@@ -1,12 +1,12 @@
-class Singleton {
+class Singleton{
 
-  Singleton._privateConstructor();
+   Singleton._privateConstructor();
 
-  static final Singleton _instance = Singleton._privateConstructor();
+   static final Singleton _instance = Singleton._privateConstructor();
 
-  static Singleton get instance => _instance;
+   static Singleton get instance => _instance;
 
-  String? userName;
-  String? email;
+   String? email;
+
 
 }

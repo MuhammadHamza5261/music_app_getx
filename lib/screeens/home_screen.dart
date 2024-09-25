@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:getx_music_app/const/colors.dart';
 import 'package:getx_music_app/const/text_style.dart';
@@ -8,7 +9,9 @@ import 'package:getx_music_app/screeens/player_screen.dart';
 import 'package:getx_music_app/singleton.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
+import '../auth/login_screen.dart';
 import '../config/navigation.dart';
+import '../config/shared_pref.dart';
 
 
 class HomeScreen extends StatefulWidget {
@@ -24,8 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   PlayController playController = Get.put(PlayController());
 
-
-  final userName =  Singleton.instance.userName ?? "";
+  final email = Singleton.instance.email ?? "";
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: AppColors.bgDarkColor,
 
       appBar: AppBar(
-        title: Text("Audio Players"),
+        title: const Text("Audio Players"),
         centerTitle: true,
       ),
       drawer: Drawer(
@@ -45,7 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             DrawerHeader(
               decoration: const BoxDecoration(
-                color: Colors.black, // Set header background color
+                color: Colors.black,
               ),
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -55,10 +57,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     const SizedBox(
                       height: 10,
                     ),
-                    const CircleAvatar(
+                   CircleAvatar(
+                     backgroundColor: Colors.green.shade600,
                       radius: 30,
-                      child: Icon(
+                      child: const Icon(
                         Icons.person,
+                        color: Colors.white,
                         size: 30,
                       ),
                     ),
@@ -66,10 +70,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       height: 10,
                     ),
                     Text(
-                      "Hello $userName",
+                      email,
                       style: const TextStyle(
                         fontSize: 20,
-                        color: Colors.white, // Text color for better contrast with background
+                        color: Colors.white,
                       ),
                     ),
                   ],
@@ -99,16 +103,21 @@ class _HomeScreenState extends State<HomeScreen> {
                   SizedBox(
                     height: 30,
                   ),
-                  Row(
-                    children: [
-                      Icon(Icons.logout,size: 30,),
-                      SizedBox(
-                        width: 20,
-                      ),
-                      Text("Logout",style: TextStyle(
-                        fontSize: 18
-                      ),),
-                    ],
+                  GestureDetector(
+                    onTap: (){
+                      _showLogoutDialog();
+                    },
+                    child: Row(
+                      children: [
+                        Icon(Icons.logout,size: 30,),
+                        SizedBox(
+                          width: 20,
+                        ),
+                        Text("Logout",style: TextStyle(
+                          fontSize: 18
+                        ),),
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -204,6 +213,40 @@ class _HomeScreenState extends State<HomeScreen> {
           }
         },
       ),
+    );
+  }
+  void _showLogoutDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Logout'),
+          content: const Text('Are you sure you want to logout?'),
+          actions: [
+            TextButton(
+                onPressed: () {
+                   // Close the dialog
+                },
+                child: OutlinedButton(
+                  onPressed: (){
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('No'),
+                )
+            ),
+            TextButton(
+              onPressed: () {
+                SharedPrefClient.clearLoggedKey();
+                Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(builder: (context) => const LoginScreen()),
+                      (route) => false, // Remove all previous routes
+                );
+              },
+              child: const Text('Yes'),
+            ),
+          ],
+        );
+      },
     );
   }
 }
