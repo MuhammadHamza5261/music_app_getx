@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx_music_app/const/colors.dart';
@@ -6,6 +7,8 @@ import 'package:getx_music_app/controller/play_controller.dart';
 import 'package:getx_music_app/screeens/player_screen.dart';
 import 'package:getx_music_app/singleton.dart';
 import 'package:on_audio_query/on_audio_query.dart';
+
+import '../config/navigation.dart';
 
 
 class HomeScreen extends StatefulWidget {
@@ -34,22 +37,88 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: AppColors.bgDarkColor,
 
       appBar: AppBar(
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.search,
-              color: AppColors.whiteColor,
-            ),
-          ),
-        ],
-        leading: const Icon(
-          Icons.sort_rounded,
-          color: AppColors.whiteColor,
-        ),
-        title: Text("Welcome, $userName"),
+        title: Text("Audio Players"),
         centerTitle: true,
       ),
+      drawer: Drawer(
+        child: ListView( // Using ListView to ensure the drawer is scrollable if content overflows
+          children: [
+            DrawerHeader(
+              decoration: const BoxDecoration(
+                color: Colors.black, // Set header background color
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    const CircleAvatar(
+                      radius: 30,
+                      child: Icon(
+                        Icons.person,
+                        size: 30,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      "Hello $userName",
+                      style: const TextStyle(
+                        fontSize: 20,
+                        color: Colors.white, // Text color for better contrast with background
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 20,top: 20),
+              child: Column(
+                children: [
+                  GestureDetector(
+                    onTap: (){
+                      NavigationHelper.navigateToScreen(context, HomeScreen());
+                    },
+                    child: Row(
+                      children: [
+                        Icon(Icons.home_outlined,size: 30,),
+                        SizedBox(
+                          width: 20,
+                        ),
+                        Text("Home",style: TextStyle(
+                          fontSize: 18
+                        ),),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Row(
+                    children: [
+                      Icon(Icons.logout,size: 30,),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Text("Logout",style: TextStyle(
+                        fontSize: 18
+                      ),),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+
+          ],
+        ),
+      ),
+
+
       body: FutureBuilder<List<SongModel>>(
 
         future: playController.audioQuery.querySongs(
