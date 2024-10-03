@@ -1,9 +1,11 @@
+import 'package:getx_music_app/singleton.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPrefClient{
 
 
   static const String _isLoggedKey = "isLoggedKey";
+  static const String _isLoginEmail = "isLoginEmail";
 
 
   static Future<void> setLoggedKey(bool isLoggedKey) async{
@@ -26,6 +28,27 @@ class SharedPrefClient{
     pref.remove(_isLoggedKey);
 
   }
+
+  // set login email
+
+  static Future<void> setLoginEmail(String email) async{
+
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    sp.setString(_isLoginEmail, email);
+    Singleton.instance.email = email ;
+
+  }
+
+  static Future<void> getLoginEmail() async{
+
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    String? data = sp.getString(_isLoginEmail) ;
+    if(data != null) {
+      Singleton.instance.email = data ;
+    }
+
+  }
+
 
 
 

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:getx_music_app/config/shared_pref.dart';
 import 'package:getx_music_app/screeens/home_screen.dart';
+import 'package:getx_music_app/singleton.dart';
 import '../config/navigation.dart';
 import 'login_screen.dart';
 
@@ -27,8 +28,10 @@ class _SplashScreenState extends State<SplashScreen> {
   void _isCheckedStatus() async{
 
      bool isLoggedKey = await SharedPrefClient.getLoggedKey();
-     Timer(const Duration(seconds: 5), () {
-       if (isLoggedKey) {
+     Timer(const Duration(seconds: 5), () async {
+       if (isLoggedKey)  {
+          await SharedPrefClient.getLoginEmail();
+
          NavigationHelper.navigateToScreen(context, const HomeScreen());
        } else {
          NavigationHelper.navigateToScreen(context, const LoginScreen());

@@ -44,9 +44,9 @@ class LoginController extends GetxController {
 
         loading.value = false;
 
-         Singleton.instance.email = emailController.text;
-
          await SharedPrefClient.setLoggedKey(true);
+
+         await SharedPrefClient.setLoginEmail(emailController.text);
 
         Get.off(() => const HomeScreen());
 
