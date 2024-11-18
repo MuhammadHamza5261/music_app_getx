@@ -29,11 +29,16 @@ class _SplashScreenState extends State<SplashScreen> {
 
      bool isLoggedKey = await SharedPrefClient.getLoggedKey();
      Timer(const Duration(seconds: 5), () async {
+
        if (isLoggedKey)  {
+
           await SharedPrefClient.getLoginEmail();
 
          NavigationHelper.navigateToScreen(context, const HomeScreen());
-       } else {
+
+       }
+
+       else {
          NavigationHelper.navigateToScreen(context, const LoginScreen());
        }
      });

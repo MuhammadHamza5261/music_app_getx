@@ -146,6 +146,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             );
           }
+
           else if (!snapshot.hasData || snapshot.data!.isEmpty) {
             return const Center(
               child: Text(
@@ -153,14 +154,17 @@ class _HomeScreenState extends State<HomeScreen> {
                 style: CustomTextTheme.textOne,
               ),
             );
-          } else if (snapshot.hasError) {
+          }
+
+          else if (snapshot.hasError) {
             return Center(
               child: Text(
                 'Error: ${snapshot.error}',
                 style: CustomTextTheme.textOne,
               ),
             );
-          } else {
+          }
+          else {
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
               child: ListView.builder(

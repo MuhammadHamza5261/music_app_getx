@@ -13,11 +13,15 @@ class PlayerScreen extends StatelessWidget {
   PlayerScreen({Key? key, required this.data}) : super(key: key);
 
   // initialize the playController
-
   final PlayController playController = Get.put(PlayController());
 
   @override
   Widget build(BuildContext context) {
+
+    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
+
+
     return Scaffold(
       backgroundColor: AppColors.bgColor,
       appBar: AppBar(
